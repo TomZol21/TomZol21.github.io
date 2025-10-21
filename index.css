@@ -1,0 +1,121 @@
+/* -------------------
+   Zmienne globalne
+------------------- */
+:root {
+  --body-bg: rgb(220, 245, 255);
+  --page-bg: rgb(190, 235, 255);
+  --head-bg: rgb(60, 180, 255);
+  --head-color: rgb(30, 30, 30);
+  --lab-bg: rgb(0, 145, 215);
+  --lab-hover: linear-gradient(145deg, rgb(0, 165, 235), rgb(0, 120, 190));
+  --part-hover-shadow: rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: rgb(10, 10, 30);
+    --page-bg: rgb(25, 25, 60);
+    --head-bg: rgb(15, 10, 60);
+    --head-color: rgb(235, 235, 255);
+    --lab-bg: rgb(20, 15, 90);
+    --lab-hover: linear-gradient(145deg, rgb(50, 40, 130), rgb(80, 60, 160));
+    --part-hover-shadow: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* -------------------
+   Body i struktura
+------------------- */
+body {
+  color-scheme: light dark;
+  background-color: var(--body-bg);
+  margin: 0 1rem; /* wcięcie boczne eksponujące tło body */
+  font-family: sans-serif;
+}
+
+#pageBackground {
+  width: 100%;
+  height: 10rem;
+  background-color: var(--page-bg);
+}
+
+#headlineTitle {
+  height: 1.3em;
+  padding: 0.25em;
+  text-align: center;
+  color: var(--head-color);
+  background-color: var(--head-bg);
+  margin: 0;
+}
+
+#listOfLinks {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* -------------------
+   Laboratoria i części
+------------------- */
+.lab {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.3em;
+  margin: 0.15rem 0 0 0;   /* tylko margines top, brak bottom */
+  background-color: var(--lab-bg);
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.lab:hover {
+  background: var(--lab-hover);
+  box-shadow: inset 0 0 12px var(--part-hover-shadow);
+  transform: translateY(-0.1rem);
+}
+
+.labWithParts {
+  display: flex;
+  flex-direction: column;
+}
+
+.listOfParts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 20rem;
+  position: relative;
+  top: -1rem;             /* lista części nachodzi na laboratorium */
+  visibility: hidden;      
+  pointer-events: none;
+  transition: top 0.3s ease, visibility 0.3s ease;
+}
+
+.labWithParts:hover + .listOfParts,
+.labWithParts + .listOfParts:hover {
+  top: 0;                 /* nachodzenie przy wysuwaniu */
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.part {
+  width: 32%;             /* poziomy odstęp między elementami */
+  text-align: center;
+  background-color: var(--lab-bg);
+  padding: 0.2em;
+  border-radius: 4px;
+  margin: 0;              /* brak odstępu pionowego */
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.part:hover {
+  transform: translateY(-0.15rem);
+  background: var(--lab-hover);
+  box-shadow: inset 0 0 8px var(--part-hover-shadow);
+}
