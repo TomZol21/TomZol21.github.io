@@ -60,13 +60,16 @@ body {
 .labContainer {
   width: 100%;
   max-width: 20rem;
-  margin: 0.15rem 0; /* odstęp między kontenerami */
+  margin: 0.15rem 0;
+  display: flex;             /* ważne, żeby elementy wewnątrz były poprawnie skalowane */
+  flex-direction: column;    /* lab i listOfParts w kolumnie */
 }
 
 /* -------------------
-   Laboratoria i części
+   Laboratoria
 ------------------- */
 .lab {
+  box-sizing: border-box; 
   position: relative;
   z-index: 3;
   width: 100%;
@@ -96,32 +99,30 @@ body {
 }
 
 /* -------------------
-   Lista części (wysuwana)
+   Lista części (wysuwana) – GRID
 ------------------- */
 .listOfParts {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+  gap: 0.5rem;
+  width: 100%;               /* teraz idealnie dopasowane do kontenera */
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.4s ease;
 }
 
 .labContainer:hover .listOfParts {
-  max-height: 1000px; /* wystarczająco duża, aby pomieścić wszystkie części */
+  max-height: 1000px;
 }
 
 /* -------------------
    Części laboratoriów
 ------------------- */
 .part {
-  width: 32%;
   text-align: center;
   background-color: var(--lab-bg);
   padding: 0.2em;
   border-radius: 4px;
-  margin: 0;
   transition:
     transform 0.25s ease,
     background 0.4s ease,
