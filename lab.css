@@ -1,0 +1,180 @@
+/* lab.css — layouty tabel i galerii */
+
+/* column = pionowy stack wierszy, center + ograniczenie szerokości */
+.column{
+  display:flex;
+  flex-direction:column;
+  gap:0.6rem;
+  width:100%;
+  max-width: 80vw;
+  margin:0 auto;
+  padding:0.25rem;
+}
+
+/* row: każdy row jest oddzielnym wierszem - używamy flex, aby zachować liczbę kolumn tak jak w HTML */
+.row{
+  display:flex;
+  flex-direction:row;
+  gap:0.6rem;
+  align-items:stretch;
+  width:100%;
+}
+
+/* komórka: każda komórka w rzędzie zajmuje równą część w wierszu */
+.cell{
+  flex:1 1 0;
+  padding:0.6rem;
+  color:var(--head-color);
+  text-align:left;
+  background:transparent;
+  border-radius:8px;
+  border: 0.08rem solid rgba(85,30,189,0.06);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  overflow:hidden;
+}
+
+/* jeśli chcesz tło ciemniejsze dla cell (opcjonalne) */
+.cell--card{
+  background: rgba(0,0,0,0.04);
+}
+
+/* Obrazy w cell — domyślne: dopasować do szerokości, zachować proporcje */
+.cell img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:100%;
+  border-radius:6px;
+  object-fit:cover;
+}
+
+/* Specjalny wariant galerii: wymuszone kadrowanie o równej wysokości (responsywne) */
+/* Dodaj klasę .gallery do .column, wtedy wszystkie .row .cell img będą miały wysokość i kadrowanie */
+.column.gallery .row .cell img{
+  width:100%;
+  max-height: 30em;
+  object-fit:cover;
+  object-position: bottom;
+  display:block;
+}
+
+/* mniejsze ekrany: zmniejsz wysokość galerii */
+@media (max-width:600px){
+  .column.gallery .row .cell img{ height:140px; max-height:30vh; }
+}
+
+
+.row.cols-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:0.6rem; }
+.row.cols-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:0.6rem; }
+.row.cols-4{ display:grid; grid-template-columns: repeat(4, 1fr); gap:0.6rem; }
+
+
+.cell p{ margin:0.5rem 0 0 0; color:var(--head-color); }
+
+/* Wyraźne bordery dla tabel i galerii (pliki które ładują lab.css) */
+.column .cell {
+  border: 1px solid rgba(85, 30, 189, 0.12); /* delikatny fioletowy border */
+  background: rgba(255,255,255,0.02);        /* subtelne wypełnienie (możesz usunąć) */
+}
+
+/* Dla lepszej separacji wierszy w tabeli */
+.column .row {
+  border-radius: 8px;
+}
+
+/* Alternatywa: widoczniejszy border na hover */
+.column .cell:hover {
+  border-color: rgba(85, 30, 189, 0.22);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+
+form {
+  max-width: 1000px;
+  margin: 1.0rem auto;
+  background: transparent;
+  padding: 0.6rem;
+  border-radius: 8px;
+}
+
+form table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+form th, form td {
+  padding: 0.35rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--head-color);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[list],
+select,
+textarea {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid rgba(30,30,30,0.12);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  color: var(--head-color);
+  box-shadow: none;
+}
+
+input[type="checkbox"]{
+  transform: scale(1.05);
+  margin-top: 0.25rem;
+}
+
+input[type="submit"]{
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  background: var(--lab-bg);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+input[type="submit"]:hover{
+  background: linear-gradient(145deg, rgb(0,170,200), rgb(0,120,160));
+}
+
+/* poprawka layoutu tabel wewnątrz formularza: kolumny układają się ładnie na mobile */
+@media (max-width: 900px) {
+  form table tr th {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* drobne wyrównanie - szerokości nagłówków tabeli w pliku 6 */
+form > table[width="100%"] > tbody > tr > th:first-child {
+  width: 20%;
+}
+form > table[width="100%"] > tbody > tr > th:nth-child(2) {
+  width: 60%;
+}
+form > table[width="100%"] > tbody > tr > th:last-child {
+  width: 20%;
+}
+
+/* estetyczny tekst pomocniczy */
+.help-text {
+  font-size: 0.9rem;
+  color: rgba(0,0,0,0.55);
+  margin-top: 0.35rem;
+}
