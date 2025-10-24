@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+    <head>
+        <title>Formularz</title>
+        <link rel="stylesheet" href="../index.css">
+        <link rel="stylesheet" href="../lab.css">
+    </head>
+    <body>
+        <div style="padding:0.6rem; text-align:left;">
+            <a href="../index.html" class="return-btn">← Powrót do strony głównej</a>
+        </div>
+        <form>
+            <table width="100%">
+                <tr>
+                    <th width="20%"></th>
+                    <th width="60%">
+                        <h1>Formularz do wypełnienia</h1>
+                        <table width="100%">
+                            <tr>
+                                <th>
+                                    <label for="fname">Imię:</label><br>
+                                    <input type="text" id="fname" name="firstName">
+                                </th>
+                                <th>
+                                    <label for="lname">Nazwisko:</label><br>
+                                    <input type="text" id="lname" name="lastName">
+                                </th>
+                                <th>
+                                    <label for="sex">Płeć:</label><br>
+                                    <input list="sexes">
+                                    <datalist id="sexes">
+                                        <option value="Męższczyzna"></option>
+                                        <option value="Kobieta"></option>
+                                    </datalist>
+                                </th>
+                                <th>
+                                    <label for="bdate">Data urodzenia:</label><br>
+                                    <input type="date" id="bdate" name="birthDate">
+                                </th>
+                                <th>
+                                    <label for="dl">Prawo jazdy:</label><br>
+                                    <input type="checkbox" id="dl" name="drivingLicence">
+                                </th>
+                            </tr>
+                        </table>
+                        <table width="100%">
+                            <tr>
+                                <th>
+                                    <label for="voivo">Województwo:</label><br>
+                                    <input type="text" id="voivo" name="voivoship">
+                                </th>
+                                <th>
+                                    <label for="city">Miasto:</label><br>
+                                    <input type="text" id="city" name="city">
+                                </th>
+                                <th>
+                                    <label for="street">Ulica:</label><br>
+                                    <input type="text" id="street" name="street">
+                                </th>
+                                <th>
+                                    <label for="mail">Email:</label><br>
+                                    <input type="email" id="mail" name="email"><br>
+                                </th>
+                                <th>
+                                    <label for="telnum">Numer tel:</label><br>
+                                    <input type="tel" id="telnum" name="telephoneNumber">
+                                </th>
+                            </tr>
+                        </table>
+                        <hr>
+                        <label for="remark">Uwagi:</label><br>
+                        <input type="text" id="remark" name="remark">
+                        <input type="submit">
+                    </th>
+                    <th width="20%"></th>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
