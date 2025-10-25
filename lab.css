@@ -1,180 +1,281 @@
-/* lab.css — layouty tabel i galerii */
+/* lab.css — layouty tabel, galerii, bordery i rozbudowany styl formularza
+   Zakłada: index.css jest załadowany wcześniej (zmienne kolorów dostępne)
+*/
 
-/* column = pionowy stack wierszy, center + ograniczenie szerokości */
-.column{
-  display:flex;
-  flex-direction:column;
-  gap:0.6rem;
-  width:100%;
-  max-width: 80vw;
-  margin:0 auto;
-  padding:0.25rem;
+/* ---------- Column / Row / Cell (tabele, galeria) ---------- */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  /* maksymalna szerokość — może być większa na stronach z galerią/tabelami */
+  max-width: 80rem; /* scalone z dolną sekcją (było var i później nadpis) */
+  margin: 0 auto;
+  padding: 0.25rem;
 }
 
-/* row: każdy row jest oddzielnym wierszem - używamy flex, aby zachować liczbę kolumn tak jak w HTML */
-.row{
-  display:flex;
-  flex-direction:row;
-  gap:0.6rem;
-  align-items:stretch;
-  width:100%;
+/* rzędy: elastyczne, domyślnie wrap */
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  align-items: stretch;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-/* komórka: każda komórka w rzędzie zajmuje równą część w wierszu */
-.cell{
-  flex:1 1 0;
-  padding:0.6rem;
-  color:var(--head-color);
-  text-align:left;
-  background:transparent;
-  border-radius:8px;
-  border: 0.08rem solid rgba(85,30,189,0.06);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
-  overflow:hidden;
-}
-
-/* jeśli chcesz tło ciemniejsze dla cell (opcjonalne) */
-.cell--card{
-  background: rgba(0,0,0,0.04);
-}
-
-/* Obrazy w cell — domyślne: dopasować do szerokości, zachować proporcje */
-.cell img{
-  display:block;
-  width:100%;
-  height:auto;
-  max-width:100%;
-  border-radius:6px;
-  object-fit:cover;
-}
-
-/* Specjalny wariant galerii: wymuszone kadrowanie o równej wysokości (responsywne) */
-/* Dodaj klasę .gallery do .column, wtedy wszystkie .row .cell img będą miały wysokość i kadrowanie */
-.column.gallery .row .cell img{
-  width:100%;
-  max-height: 30em;
-  object-fit:cover;
-  object-position: bottom;
-  display:block;
-}
-
-/* mniejsze ekrany: zmniejsz wysokość galerii */
-@media (max-width:600px){
-  .column.gallery .row .cell img{ height:140px; max-height:30vh; }
-}
-
-
-.row.cols-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:0.6rem; }
-.row.cols-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:0.6rem; }
-.row.cols-4{ display:grid; grid-template-columns: repeat(4, 1fr); gap:0.6rem; }
-
-
-.cell p{ margin:0.5rem 0 0 0; color:var(--head-color); }
-
-/* Wyraźne bordery dla tabel i galerii (pliki które ładują lab.css) */
-.column .cell {
-  border: 1px solid rgba(85, 30, 189, 0.12); /* delikatny fioletowy border */
-  background: rgba(255,255,255,0.02);        /* subtelne wypełnienie (możesz usunąć) */
-}
-
-/* Dla lepszej separacji wierszy w tabeli */
-.column .row {
+/* komórka */
+.cell {
+  flex: 1 1 0;
+  padding: 0.6rem;
+  color: var(--head-color);
+  text-align: left;
+  background: rgba(255,255,255,0.01);
   border-radius: 8px;
+  border: 1px solid rgba(85,30,189,0.12);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 
-/* Alternatywa: widoczniejszy border na hover */
-.column .cell:hover {
-  border-color: rgba(85, 30, 189, 0.22);
+.cell:hover {
+  border-color: rgba(85,30,189,0.22);
   box-shadow: 0 2px 6px rgba(0,0,0,0.04);
   transform: translateY(-2px);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
+/* opcjonalna karta */
+.cell--card { background: rgba(255,255,255,0.02); }
 
-form {
-  max-width: 1000px;
-  margin: 1.0rem auto;
-  background: transparent;
-  padding: 0.6rem;
-  border-radius: 8px;
-}
-
-form table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-form th, form td {
-  padding: 0.35rem;
-  vertical-align: top;
-  text-align: left;
-}
-
-form label {
+/* obrazy w komórkach */
+.cell img {
   display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Galeria: wymuszone kadrowanie (jeśli kontener .gallery jest użyty) */
+.column.gallery .row .cell img {
+  width: 100%;
+  height: var(--gallery-row-height, 400px);
+  max-height: 60vh;
+  object-fit: cover;
+  object-position: bottom;
+  display: block;
+}
+
+/* wymuszenie kolumn w konkretnym wierszu (użyteczne dla układów) */
+.row.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+.row.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.row.cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+
+/* media query dla galerii na małych urządzeniach */
+@media (max-width: 600px) {
+  .column.gallery .row .cell img {
+    height: 140px;
+    max-height: 30vh;
+  }
+}
+
+/* ---------- Formularz (komplet) ---------- */
+/* kontener formularza */
+.form-wrap {
+  width: 95%;
+  max-width: 70rem; /* zwęziłem domyślnie, ale zgodnie z Twoją uwagą (było 1100px) */
+  margin: 0.6rem auto 2rem;
+  padding: 0.4rem;
+  box-sizing: border-box;
+}
+
+/* fieldset / karta wizualna */
+.fieldset-card,
+form fieldset,
+.address-section {
+  border: 1px solid rgba(85,30,189,0.08);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.01);
+  margin-bottom: 0.9rem;
+}
+
+/* legend (tytuły fieldset) */
+.fieldset-card legend,
+form fieldset legend {
+  padding: 0 0.5rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
   color: var(--head-color);
 }
 
+/* wiersze formularza */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin-bottom: 0.6rem;
+}
+
+/* standardowe pole (label + input) */
+.form-group {
+  flex: 1 1 15rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+.form-group label {
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: var(--head-color);
+  white-space: nowrap;
+}
+
+/* warianty układu */
+.two-cols .form-group { flex: 1 1 45%; min-width: 160px; }
+.two-cols-tight .form-group { flex: 1 1 45%; min-width: 120px; }
+
+.form-group.small-field {
+  flex: 0 1 8rem;
+  align-items: center;
+}
+
+/* pełna szerokość */
+.form-group.full-width { flex: 1 1 100%; }
+
+/* pola formularza - input / select / textarea */
+.form-field-input,
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
-input[list],
+input[type="number"],
 select,
 textarea {
-  width: 100%;
   padding: 0.45rem 0.5rem;
-  border: 1px solid rgba(30,30,30,0.12);
   border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.12);
   background: rgba(255,255,255,0.02);
   color: var(--head-color);
-  box-shadow: none;
+  font-size: 0.96rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-input[type="checkbox"]{
-  transform: scale(1.05);
-  margin-top: 0.25rem;
+/* textarea */
+textarea {
+  min-height: 4.2rem;
+  max-height: 60vh;
+  resize: vertical;
+  line-height: 1.3;
+  padding: 0.6rem;
 }
 
-input[type="submit"]{
-  display: inline-block;
-  padding: 0.45rem 0.8rem;
-  border-radius: 6px;
+/* checkbox: wyrównanie */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* select: jasne w normalnym trybie, ciemne w dark-mode (nadpisanie) */
+select {
+  background-color: rgba(255,255,255,0.95);
+  color: #000;
+  border: 1px solid rgba(0,0,0,0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  select {
+    background-color: rgba(30,30,30,0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  select option {
+    background-color: rgba(30,30,30,0.95);
+    color: #fff;
+  }
+}
+
+/* ---------- Kod pocztowy i Miasto (razem) ---------- */
+.form-group.postal { min-width: 10rem; flex: 0 1 auto; }
+.form-group.postal label { white-space: nowrap; min-width: 9ch; }
+
+.form-group.postal input {
+  width: 8ch;
+  text-align: center;
+  padding: 0.35rem 0.3rem;
+  font-family: monospace;
+}
+
+.city-post {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  width: 100%;
+}
+
+.city-field { flex: 1 1 auto; min-width: 10rem; }
+
+/* ---------- Ulica + nr budynku + nr lokalu ---------- */
+.street-row {
+  display: flex;
+  gap: 0.6rem;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.street-row .street-field {
+  flex: 1 1 40%;
+  min-width: 160px;
+}
+
+.street-row .small-field {
+  flex: 0 1 9rem; /* trochę szersze niż wcześniej */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group.small-field input {
+  width: 8ch;
+  text-align: center;
+  padding: 0.4rem;
+}
+
+.form-group.small-field label { text-align: center; }
+
+/* pomocniczy tekst */
+.help-text { font-size: 0.82rem; color: rgba(0,0,0,0.45); margin-top: 0.25rem; }
+
+/* przycisk submit */
+input[type="submit"] {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
   background: var(--lab-bg);
   color: white;
   border: none;
   cursor: pointer;
-  margin-top: 0.5rem;
+}
+input[type="submit"]:hover { background: var(--lab-hover); }
+
+/* ---------- Responsywność formularza i kolumn ---------- */
+@media (max-width: 720px) {
+  .form-wrap { padding: 0.3rem; width: 95%; max-width: 95%; }
+  .two-cols .form-group { flex-basis: 100%; }
+  .city-post { flex-direction: column; align-items: flex-start; }
+  .street-row { flex-direction: column; }
+  .form-group.small-field { flex-basis: 40%; }
+  .form-group.postal label { min-width: auto; }
+  .form-group.postal input { width: 7ch; }
+  .column { max-width: 95%; }
 }
 
-input[type="submit"]:hover{
-  background: linear-gradient(145deg, rgb(0,170,200), rgb(0,120,160));
-}
-
-/* poprawka layoutu tabel wewnątrz formularza: kolumny układają się ładnie na mobile */
-@media (max-width: 900px) {
-  form table tr th {
-    display: block;
-    width: 100%;
-  }
-}
-
-/* drobne wyrównanie - szerokości nagłówków tabeli w pliku 6 */
-form > table[width="100%"] > tbody > tr > th:first-child {
-  width: 20%;
-}
-form > table[width="100%"] > tbody > tr > th:nth-child(2) {
-  width: 60%;
-}
-form > table[width="100%"] > tbody > tr > th:last-child {
-  width: 20%;
-}
-
-/* estetyczny tekst pomocniczy */
-.help-text {
-  font-size: 0.9rem;
-  color: rgba(0,0,0,0.55);
-  margin-top: 0.35rem;
+@media (max-width: 420px) {
+  textarea { min-height: 3.6rem; }
+  .form-group.small-field input { width: 4.5ch; }
+  .form-group.small-field input { width: 7ch; } /* kompatybilność z innymi regułami */
 }
