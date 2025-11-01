@@ -76,8 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     currentInput = result.toString();
-    previousInput = "";
-    operator = null;
+    previousInput = currentInput;
     resetNext = true;
     updateDisplay();
   }
