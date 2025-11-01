@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="./calculator.css">
+    <script src="./calculator.js" defer></script>
+</head>
+<body>
+    <div style="padding:0.6rem; text-align:left;">
+        <a href="../index.html" class="return-btn">← Powrót do strony głównej</a>
+    </div>
+
+    <div id="pageBackground">
+        <h1 id="headlineTitle">Kalkulator</h1>
+
+        <div id="calculatorBody">
+            <!-- Lewa sekcja -->
+            <div id="leftSide">
+                <div id="screen">
+                    <div id="previousOperation"></div>
+                    <div id="currentOperation"></div>
+                </div>
+
+                <div id="buttonsGrid">
+                    <!-- Wiersz 1 -->
+                    <div class="button" onclick="numberInput('7')">7</div>
+                    <div class="button" onclick="numberInput('8')">8</div>
+                    <div class="button" onclick="numberInput('9')">9</div>
+                    <div class="button operator" onclick="mathOperation('+')">+</div>
+
+                    <!-- Wiersz 2 -->
+                    <div class="button" onclick="numberInput('4')">4</div>
+                    <div class="button" onclick="numberInput('5')">5</div>
+                    <div class="button" onclick="numberInput('6')">6</div>
+                    <div class="button operator" onclick="mathOperation('-')">−</div>
+
+                    <!-- Wiersz 3 -->
+                    <div class="button" onclick="numberInput('1')">1</div>
+                    <div class="button" onclick="numberInput('2')">2</div>
+                    <div class="button" onclick="numberInput('3')">3</div>
+                    <div class="button operator" onclick="mathOperation('×')">×</div>
+
+                    <!-- Wiersz 4 -->
+                    <div class="button" onclick="numberInput('.')">.</div>
+                    <div class="button" onclick="numberInput('0')">0</div>
+                    <div class="button reset" onclick="resetScreen()">C</div>
+                    <div class="button operator" onclick="mathOperation('÷')">÷</div>
+
+                    <!-- Wiersz 5 -->
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="button equals" onclick="mathOperation('=')">=</div>
+                </div>
+            </div>
+
+            <!-- Prawa sekcja: historia -->
+            <div id="rightSide">
+                <h3>Historia</h3>
+                <div id="history"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
