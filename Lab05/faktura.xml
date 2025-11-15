@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="template.xsl" type="text/xsl"?>
+<Faktura>
+    <Nip>1234567890</Nip>
+    <Nabywca>
+        <Imie>Jan</Imie>
+        <Nazwisko>Kowalski</Nazwisko>
+        <Ulica>ul. Przykładowa 1</Ulica>
+        <Miasto>00-000 Miasto</Miasto>
+    </Nabywca>
+    <Towary>
+        <Towar>
+            <Nazwa>Papier A4</Nazwa>
+            <Ilość>2</Ilość>
+            <CenaJednostkowa>12.50</CenaJednostkowa>
+        </Towar>
+        <Towar>
+            <Nazwa>Długopis</Nazwa>
+            <Ilość>10</Ilość>
+            <CenaJednostkowa>2.30</CenaJednostkowa>
+        </Towar>
+        <Towar>
+            <Nazwa>Zeszyt</Nazwa>
+            <Ilość>3</Ilość>
+            <CenaJednostkowa>4.99</CenaJednostkowa>
+        </Towar>
+        <Towar>
+            <Nazwa>Taśma klejąca</Nazwa>
+            <Ilość>1</Ilość>
+            <CenaJednostkowa>6.00</CenaJednostkowa>
+        </Towar>
+        <Towar>
+            <Nazwa>Marker</Nazwa>
+            <Ilość>4</Ilość>
+            <CenaJednostkowa>3.25</CenaJednostkowa>
+        </Towar>
+    </Towary>
+</Faktura>

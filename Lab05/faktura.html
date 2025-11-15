@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Faktura</title>
+        <link rel="stylesheet" href="../index.css">
+        <link rel="stylesheet" href="./faktura.css">
+    </head>
+    <body>
+        <div id="invoice" class="invoice-overlay"></div>
+
+        <script>
+            /*
+            Minimalny JS: wczytuje data.xml i template.xsl, uruchamia XSLT i
+            wstawia wynik do div#invoice.
+            */
+            async function loadAndTransform() {
+            try {
+                const [xmlResp, xslResp] = await Promise.all([
+                fetch('faktura.xml'),
+                fetch('faktura.xsl')
+                ]);
+                const xmlText = await xmlResp.text();
+                const xslText = await xslResp.text();
+
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+                const xslDoc = parser.parseFromString(xslText, "application/xml");
+
+                // Przeglądarki: XSLTProcessor (Chrome, Firefox, Edge)
+                if (window.XSLTProcessor) {
+                const xsltProcessor = new XSLTProcessor();
+                xsltProcessor.importStylesheet(xslDoc);
+                const resultDoc = xsltProcessor.transformToFragment(xmlDoc, document);
+                const container = document.getElementById('invoice');
+                container.innerHTML = ''; // czyść
+                container.appendChild(resultDoc);
+                } else {
+                // fallback: wkleić surowy XML (mało prawdopodobne w nowoczesnych przeglądarkach)
+                document.getElementById('invoice').textContent = 'Twoja przeglądarka nie obsługuje XSLTProcessor.';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('invoice').textContent = 'Błąd podczas ładowania danych: ' + err;
+            }
+            }
+
+            loadAndTransform();
+        </script>
+    </body>
+</html>

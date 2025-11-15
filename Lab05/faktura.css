@@ -1,0 +1,53 @@
+html{
+    width: 1920px;
+    height: 936px;
+}
+
+body{
+    width: 936px;
+    height: 100%;
+    margin: auto;
+    background-image: url('./Pictures/Faktura.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: relative; 
+}
+
+/* pozycjonujemy wynik transformacji tak, aby był widoczny na tle */
+.invoice-overlay {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* wycentrowane nad obrazem faktury */
+    width: 80%; /* dopasuj w zależności od obrazu */
+    height: 48%;
+    pointer-events: none; /* uniemożliwia kliknięcia jeśli chcesz tylko podgląd */
+    color: black;
+}
+/* na potrzeby testu, zezwól na kopiowanie selekcji: */
+.invoice-overlay * { pointer-events: auto; } 
+
+.header{
+    margin-left: 3%;
+}
+
+.header .name{
+    display: flex;
+    margin-top: 1.5%;
+    margin-left: 15%;
+}
+
+.header .address{
+    margin-left: 3%;
+}
+
+.items{
+    margin-top: 4.5%;
+}
+
+.total{
+    margin-top: 19%;
+    margin-right: 27%;
+    text-align: right;
+}
