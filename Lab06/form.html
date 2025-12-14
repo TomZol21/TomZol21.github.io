@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Formularz</title>
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body>
+  <div style="padding:0.6rem; text-align:left;">
+    <a href="../index.html" class="return-btn">← Powrót do strony głównej</a>
+  </div>
+
+  <main id="pageBackground" role="main">
+    <h1 id="headlineTitle">Formularz</h1>
+
+    <form class="form-wrap" action="./form.php" method="post">
+
+      <!-- Dane osobowe -->
+      <fieldset class="fieldset-card">
+        <legend>Dane osobowe</legend>
+
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label for="fname">Imię</label>
+            <input type="text" id="fname" name="firstName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="lname">Nazwisko</label>
+            <input type="text" id="lname" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-row two-cols-tight">
+          <div class="form-group">
+            <label for="sex">Płeć</label>
+            <select id="sex" name="sex" required>
+              <option value="">— wybierz —</option>
+              <option value="M">Mężczyzna</option>
+              <option value="K">Kobieta</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="bdate">Data urodzenia</label>
+            <input type="date" id="bdate" name="birthDate" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Dane kontaktowe (Adres jako grupa) -->
+      <fieldset class="address-section">
+        <legend>Dane kontaktowe</legend>
+
+        <!-- NOWY RZĄD: Województwo + Miasto + Kod pocztowy (kolejność: województwo, miasto, kod) -->
+        <div class="form-row city-post">
+          <!-- Województwo -->
+          <div class="form-group region-field">
+            <label for="region">Województwo</label>
+            <select id="region" name="region" required>
+              <option value="">— wybierz —</option>
+              <option value="dolnoslaskie">dolnośląskie</option>
+              <option value="kujawsko-pomorskie">kujawsko-pomorskie</option>
+              <option value="lubelskie">lubelskie</option>
+              <option value="lubuskie">lubuskie</option>
+              <option value="lodzkie">łódzkie</option>
+              <option value="malopolskie">małopolskie</option>
+              <option value="mazowieckie">mazowieckie</option>
+              <option value="opolskie">opolskie</option>
+              <option value="podkarpackie">podkarpackie</option>
+              <option value="podlaskie">podlaskie</option>
+              <option value="pomorskie">pomorskie</option>
+              <option value="slaskie">śląskie</option>
+              <option value="swietokrzyskie">świętokrzyskie</option>
+              <option value="warminsko-mazurskie">warmińsko-mazurskie</option>
+              <option value="wielkopolskie">wielkopolskie</option>
+              <option value="zachodniopomorskie">zachodniopomorskie</option>
+            </select>
+          </div>
+
+          <!-- Miasto -->
+          <div class="form-group city-field">
+            <label for="city">Miasto</label>
+            <input type="text" id="city" name="city" autocomplete="address-level2">
+          </div>
+
+          <!-- Kod pocztowy -->
+          <div class="form-group postal">
+            <label for="countryCode">Kod pocztowy</label>
+            <input
+              type="text"
+              id="countryCode"
+              name="countryCode"
+              pattern="[0-9]{2}-[0-9]{3}"
+              title="Format: 00-000"
+              placeholder="12-345"
+              maxlength="6"
+              required
+            >
+            <div class="help-text" aria-hidden="true">Format: 12-345</div>
+          </div>
+        </div>
+
+        <!-- Ulica + Nr budynku + Nr lokalu w jednym wierszu -->
+        <div class="form-row street-row">
+          <div class="form-group street-field">
+            <label for="street">Ulica</label>
+            <input type="text" id="street" name="street" autocomplete="address-line1">
+          </div>
+
+          <div class="form-group small-field">
+            <label for="streetNum">Nr budynku</label>
+            <input type="number" id="streetNum" name="streetNumber" min="1" inputmode="numeric">
+          </div>
+
+          <div class="form-group small-field">
+            <label for="flatNum">Nr lokalu</label>
+            <input type="number" id="flatNum" name="flatNumber" min="1" inputmode="numeric" placeholder="opcjonalne">
+          </div>
+        </div>
+
+        <!-- Email i telefon -->
+        <div class="form-row two-cols">
+          <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email" id="mail" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="telnum">Numer tel.</label>
+            <input type="tel" id="telnum" name="telephoneNumber" pattern="[0-9]{9}" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Informacje dodatkowe -->
+      <fieldset class="fieldset-card">
+        <legend>Informacje dodatkowe</legend>
+
+        <div class="form-row">
+          <div class="checkbox-row">
+            <input type="checkbox" id="dl" name="drivingLicence">
+            <label for="dl">Prawo jazdy</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="remark">Uwagi</label>
+            <textarea id="remark" name="remark" rows="4" placeholder="Wpisz uwagi..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <input type="submit" value="Wyślij">
+        </div>
+      </fieldset>
+
+    </form>
+  </main>
+</body>
+</html>
